@@ -6,13 +6,13 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
 
-from rest_framework_jwt.views import ObtainJSONWebTokenView
+from rest_framework_simplejwt.views import TokenObtainPairView as ObtainJSONWebTokenView
 
-from styleguide_example.api.mixins import ApiAuthMixin
+from api.mixins import ApiAuthMixin
 
-from styleguide_example.authentication.services import auth_logout
+from authentication.services import auth_logout
 
-from styleguide_example.users.selectors import user_get_login_data
+from users.selectors import user_get_login_data
 
 
 class UserSessionLoginApi(APIView):

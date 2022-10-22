@@ -1,7 +1,7 @@
 from django.db.models.query import QuerySet
 
-from styleguide_example.users.models import BaseUser
-from styleguide_example.users.filters import BaseUserFilter
+from users.models import BaseUser
+from users.filters import BaseUserFilter
 
 
 def user_get_login_data(*, user: BaseUser):

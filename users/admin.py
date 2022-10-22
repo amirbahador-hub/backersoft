@@ -1,8 +1,8 @@
 from django.contrib import admin, messages
 from django.core.exceptions import ValidationError
 
-from styleguide_example.users.models import BaseUser
-from styleguide_example.users.services import user_create
+from users.models import BaseUser
+from users.services import user_create
 
 
 @admin.register(BaseUser)

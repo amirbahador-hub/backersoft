@@ -7,3 +7,6 @@ PyYAML
 Pygments
 drf-yasg
 pytest-django
+djangorestframework-simplejwt
+python-environ
+django_filter

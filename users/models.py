@@ -7,7 +7,7 @@ from django.contrib.auth.models import (
     AbstractBaseUser
 )
 
-from styleguide_example.common.models import BaseModel
+from common.models import BaseModel
 
 
 # Taken from here:
