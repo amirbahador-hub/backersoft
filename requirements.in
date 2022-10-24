@@ -7,6 +7,8 @@ PyYAML
 Pygments
 drf-yasg
 pytest-django
+faker
+pytest-factoryboy
 djangorestframework-simplejwt
 python-environ
 django_filter

@@ -2,13 +2,13 @@ from django.http import HttpRequest
 from django.utils import timezone
 
 from core.models import Project, ProjectMember, TimeLog
+from users.models import BaseUser
 from django.db import transaction
 
 
 @transaction.atomic
-def logger(*, request:HttpRequest, project:str) -> TimeLog:
+def logger(*, user:BaseUser, project:str) -> TimeLog:
     project, _ = Project.objects.get_or_create(name=project)
-    user = request.user
     project_member, _ = ProjectMember.objects.get_or_create(project=project, member=user)
     time_log = TimeLog.objects.filter(finish_at__isnull=True, project_member=project_member).first() 
 

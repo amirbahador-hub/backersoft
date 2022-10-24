@@ -6,10 +6,10 @@ from rest_framework.test import APIRequestFactory
 from rest_framework.views import APIView
 from rest_framework import serializers
 
-from styleguide_example.api.pagination import get_paginated_response, LimitOffsetPagination
+from api.pagination import get_paginated_response, LimitOffsetPagination
 
-from styleguide_example.users.services import user_create
-from styleguide_example.users.models import BaseUser
+from users.services import user_create
+from users.models import BaseUser
 
 
 class ExampleListApi(APIView):
