@@ -52,7 +52,7 @@ class TimeTrackApi(ApiAuthMixin, APIView):
         filters_serializer = self.FilterSerializer(data=request.query_params)
         filters_serializer.is_valid(raise_exception=True)
 
-        logs = log_list(filters=filters_serializer.validated_data)
+        logs = log_list(filters=filters_serializer.validated_data, request=request)
 
         return get_paginated_response(
             pagination_class=self.Pagination,
