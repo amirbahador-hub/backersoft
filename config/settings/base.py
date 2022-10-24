@@ -41,11 +41,11 @@ LOCAL_APPS = [
     "authentication",
     "common",
     "users",
-    "errors",
-    "files",
-    "integrations",
-    "emails",
-    "tasks",
+    #    "errors",
+    #"files",
+    #"integrations",
+    #"emails",
+    #"tasks",
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
