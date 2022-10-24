@@ -1,18 +1,64 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.parsers import FileUploadParser, JSONParser
-from typing import BinaryIO
+from api.mixins import ApiAuthMixin
+from rest_framework.views import APIView
+from rest_framework import serializers
+from drf_spectacular.utils import extend_schema
+
+from api.pagination import get_paginated_response, LimitOffsetPagination
+
+from core.models import TimeLog
+from core.selectors.time_log import log_list 
+from core.services.time_log import logger 
 
 
-class TestCore(APIView):
-    parser_classes = (FileUploadParser, )
-    def get(self, request, *args, **kwargs):
-        temp_result = {
-            "results": {
-                "title": "Hi",
-            }
-        }
-        return Response(temp_result)
-    
+class TimeTrackApi(ApiAuthMixin, APIView):
+    class Pagination(LimitOffsetPagination):
+        default_limit = 1
+
+    class FilterSerializer(serializers.Serializer):
+        all_members = serializers.BooleanField(required=False, default=True)
+        project   = serializers.CharField(required=True)
+
+    class InputSerializer(serializers.Serializer):
+        project   = serializers.CharField(required=True)
+
+    class OutputSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = TimeLog 
+            fields = (
+                'start_at',
+                'finish_at'
+            )
+
+
+    @extend_schema(
+            parameters=[FilterSerializer,],
+            responses=OutputSerializer,
+            )
+    def get(self, request):
+        filters_serializer = self.FilterSerializer(data=request.query_params)
+        filters_serializer.is_valid(raise_exception=True)
+
+        logs = log_list(filters=filters_serializer.validated_data)
+
+        return get_paginated_response(
+            pagination_class=self.Pagination,
+            serializer_class=self.OutputSerializer,
+            queryset=logs,
+            request=request,
+            view=self
+        )
+ 
+    @extend_schema(
+            request=InputSerializer,
+            responses=OutputSerializer,
+            )
     def post(self, request, *args, **kwargs):
-        return Response(request.data)
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        time_log = logger(request= request, project=serializer.validated_data.get("project"))
+
+        return Response(self.OutputSerializer(time_log).data)
+

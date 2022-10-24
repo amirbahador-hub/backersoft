@@ -1,6 +1,5 @@
 from django.db import models
-
-from django.db import models
+from django.utils import timezone
 
 from common.models import BaseModel
 from users.models import  BaseUser
@@ -50,7 +49,7 @@ class TimeLog(models.Model):
         null=True,
         on_delete=models.CASCADE
     )
-    start_at = models.DateTimeField()
+    start_at = models.DateTimeField(default=timezone.now())
     finish_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
