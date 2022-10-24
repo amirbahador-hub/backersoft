@@ -1,10 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework import serializers
 
-from styleguide_example.api.pagination import get_paginated_response, LimitOffsetPagination
+from api.pagination import get_paginated_response, LimitOffsetPagination
 
-from styleguide_example.users.selectors import user_list
-from styleguide_example.users.models import BaseUser
+from users.selectors import user_list
+from users.models import BaseUser
 
 
 # TODO: When JWT is resolved, add authenticated version
@@ -15,7 +15,7 @@ class UserListApi(APIView):
     class FilterSerializer(serializers.Serializer):
         id = serializers.IntegerField(required=False)
         # Important: If we use BooleanField, it will default to False
-        is_admin = serializers.NullBooleanField(required=False)
+        is_admin = serializers.BooleanField(required=False)
         email = serializers.EmailField(required=False)
 
     class OutputSerializer(serializers.ModelSerializer):
