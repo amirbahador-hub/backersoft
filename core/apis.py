@@ -14,22 +14,34 @@ from core.services.time_log import logger
 
 class TimeTrackApi(ApiAuthMixin, APIView):
     class Pagination(LimitOffsetPagination):
-        default_limit = 1
+        default_limit = 10
 
     class FilterSerializer(serializers.Serializer):
         all_members = serializers.BooleanField(required=False, default=True)
-        project   = serializers.CharField(required=True)
+        name        = serializers.CharField(required=True)
+        status      = serializers.CharField(required=False)
 
     class InputSerializer(serializers.Serializer):
         project   = serializers.CharField(required=True)
 
     class OutputSerializer(serializers.ModelSerializer):
+
+        project = serializers.SerializerMethodField('get_project')
+        member  = serializers.SerializerMethodField('get_member')
         class Meta:
             model = TimeLog 
             fields = (
+                'project',
+                'member',
                 'start_at',
                 'finish_at'
             )
+
+        def get_project(self, time_log):
+            return time_log.project_member.project.name
+
+        def get_member(self, time_log):
+            return time_log.project_member.member.email
 
 
     @extend_schema(

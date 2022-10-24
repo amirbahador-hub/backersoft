@@ -1,7 +1,6 @@
 from django.http import HttpRequest
 from django.utils import timezone
 
-from users.models import BaseUser
 from core.models import Project, ProjectMember, TimeLog
 from django.db import transaction
 
@@ -18,5 +17,3 @@ def logger(*, request:HttpRequest, project:str) -> TimeLog:
         time_log.save()
         return time_log
     return TimeLog.objects.create(project_member=project_member) # first timelog or start another timelog
-
-    
