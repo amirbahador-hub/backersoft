@@ -32,13 +32,20 @@ DEFAULT_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
-    "drf_yasg",
+    #"drf_yasg",
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
 ]
 LOCAL_APPS = [
     "core",
     "authentication",
     "common",
     "users",
+    "errors",
+    "files",
+    "integrations",
+    "emails",
+    "tasks",
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -135,12 +142,46 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+        #"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
     'DEFAULT_PAGINATION_CLASS': 'core.pagination.CustomPagination',
     "PAGE_SIZE": 10,
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.AcceptHeaderVersioning",
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
+}
+
+#SWAGGER_SETTINGS = {
+#    'SECURITY_DEFINITIONS': {
+#        'api_key': {
+#            'type': 'apiKey',
+#            'in': 'header',
+#            'name': 'Authorization'
+#        }
+#    },
+    #}
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {
+            "name": "Authorization",
+            "type": "apiKey",
+            'scheme': 'bearer',
+            "in": "header",
+        }
+    },
+    "USE_SESSION_AUTH": False,
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    #'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    #'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    #'REDOC_DIST': 'SIDECAR',
+    # OTHER SETTINGS
 }
 
 from config.jwt import *  # noqa

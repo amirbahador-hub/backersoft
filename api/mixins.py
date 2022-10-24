@@ -9,7 +9,7 @@ from django.contrib import auth
 from rest_framework.permissions import IsAuthenticated, BasePermission
 from rest_framework.authentication import SessionAuthentication, BaseAuthentication
 
-from rest_framework_simplejwt.authentication import JWTAuthentication as JSONWebTokenAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication 
 
 
 def get_auth_header(headers):
@@ -18,7 +18,9 @@ def get_auth_header(headers):
     if not value:
         return None
 
-    auth_type, auth_value = value.split()[:2]
+    #auth_type, auth_value = value.split()[:2]
+
+    auth_type, auth_value = "Session", value
 
     return auth_type, auth_value
 
@@ -74,8 +76,9 @@ else:
 
 class ApiAuthMixin:
     authentication_classes: Sequence[Type[BaseAuthentication]] = [
-        CsrfExemptedSessionAuthentication,
-        SessionAsHeaderAuthentication,
-        JSONWebTokenAuthentication
+            #CsrfExemptedSessionAuthentication,
+        #SessionAsHeaderAuthentication,
+        JWTAuthentication,
+        #JSONWebTokenAuthentication,
     ]
     permission_classes: PermissionClassesType = (IsAuthenticated, )

@@ -5,5 +5,5 @@ from .views import (
 
 app_name = "core"
 urlpatterns = [
-    path("", TestCore.as_view(), name="test"),
+    path("test/", TestCore.as_view(), name="test"),
 ]

@@ -10,3 +10,5 @@ pytest-django
 djangorestframework-simplejwt
 python-environ
 django_filter
+celery
+boto3
