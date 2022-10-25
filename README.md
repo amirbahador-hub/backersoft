@@ -1,6 +1,7 @@
 # backersoft
+![Tests](https://github.com/amirbahador-hub/backersoft/actions/workflows/tests.yml/badge.svg)   
+
 https://bakersoft.de/en/ assessment
-![Tests](https://github.com/amirbahador-hub/backersoft/actions/workflows/tests.yml/badge.svg)
 
 ## RUN IN DEVELOPMENT MODE
 Add ENV_NAME KEY to config/.env
