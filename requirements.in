@@ -6,6 +6,7 @@ uritemplate
 PyYAML
 Pygments
 drf_spectacular
+drf_spectacular_sidecar
 pytest-django
 faker
 pytest-factoryboy
