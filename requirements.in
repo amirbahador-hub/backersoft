@@ -5,7 +5,7 @@ markdown
 uritemplate
 PyYAML
 Pygments
-drf-yasg
+drf_spectacular
 pytest-django
 faker
 pytest-factoryboy
