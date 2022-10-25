@@ -13,7 +13,6 @@ install dev requirements
 pip install requirements_dev.txt
 ```
 
-
 runserver
 ```bash
 python manage.py runserver
